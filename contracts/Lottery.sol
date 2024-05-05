@@ -7,10 +7,10 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./Collection.sol";
 
 contract Lottery is Ownable, Collection {
-    address public _owner;
+    address private _owner;
     IERC20 private _usdtToken;
     uint256 lotteryId;
-    uint256 public countParsipiants;
+    uint256 private countParsipiants;
     uint256 public rewardForBurnNFT;
     address private constant addressUSDT =
         0x1531BC5dE10618c511349f8007C08966E45Ce8ef;
