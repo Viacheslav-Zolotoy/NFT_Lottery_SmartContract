@@ -7,11 +7,11 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./Collection.sol";
 
 contract Lottery is Ownable, Collection {
-    address private _owner;
+    address public _owner;
     IERC20 private _usdtToken;
     uint256 lotteryId;
-    uint256 private countParsipiants;
-    uint256 private rewardForBurnNFT;
+    uint256 public countParsipiants;
+    uint256 public rewardForBurnNFT;
     address private constant addressUSDT =
         0x1531BC5dE10618c511349f8007C08966E45Ce8ef;
 
@@ -42,17 +42,15 @@ contract Lottery is Ownable, Collection {
 
     constructor(address initialOwner) Collection(initialOwner) {
         _owner = msg.sender;
-        // _token = IERC20(tokenAddress);
         countParsipiants = 1;
         lotteryId = 1;
     }
 
-    function setRewardForBurning(uint256 _reward) external {
+    function setRewardForBurning(uint256 _reward) external onlyOwner {
         rewardForBurnNFT = _reward;
     }
 
     function burnNFT(uint256 tokenId) external {
-        // Перевірка, чи власник відповідного NFT може викликати цю функцію
         require(
             Collection.balance(msg.sender) > 0,
             "You don't have the required NFT"
